@@ -73,16 +73,11 @@ public class MainActivity extends Activity {
 		} catch (Exception e) {
 		}
 
-		setButtonText();
+		setTextText();
 
 	}
 
-	public void setButtonText() {
-		Add.setText("Hinzufügen");
-		Del.setText("Löschen");
-		Upd.setText("Ändern");
-
-	}
+	
 
 	public void setTextText() {
 		try {
@@ -90,7 +85,7 @@ public class MainActivity extends Activity {
 			text.setText(list.get(Position).getDeutsch() + " - "
 					+ list.get(Position).getEnglisch());
 		} catch (Exception e) {
-			text.setText("");
+			text.setText("Zum Auswählen auf Vokabel tippen");
 		}
 
 	}
@@ -141,6 +136,8 @@ public class MainActivity extends Activity {
 
 				ch(Position);
 				setTextText();
+				
+				putInListView();
 
 			}
 		});
@@ -167,7 +164,6 @@ public class MainActivity extends Activity {
 		setTextText();
 
 		putInListView();
-		setButtonDisabled();
 
 	}
 
@@ -225,23 +221,22 @@ public class MainActivity extends Activity {
 
 			db.updateVokabel(new Vokabel(deutsch, englisch), list.get(position)
 					.getId());
-			
+
 		} catch (Exception e) {
 		}
 		putInListView();
-		setButtonDisabled();
+
 	}
 
 	public void delWordFromList(int position) {
 		try {
 			List<Vokabel> list = db.getAllVokabeln();
 			db.deleteVokabel(list.get(position));
-			
+
 			putInListView();
-			setButtonDisabled();
 		} catch (Exception e) {
 		}
-		
+
 	}
 
 	public void addVokabelToList() {
@@ -283,19 +278,7 @@ public class MainActivity extends Activity {
 
 		setTextText();
 		putInListView();
-		setButtonDisabled();
 
-	}
-
-	public void setButtonDisabled() {
-
-		if (text.getText().equals("")) {
-			Del.setEnabled(false);
-			Upd.setEnabled(false);
-		} else {
-			Del.setEnabled(true);
-			Upd.setEnabled(true);
-		}
 	}
 
 }
